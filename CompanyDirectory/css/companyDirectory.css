@@ -1,0 +1,94 @@
+#headerBar {
+  background-color: rgb(161, 161, 161);
+  padding: 10px;
+}
+
+h1 {
+  display: inline;
+  font-weight: 100;
+  color: white;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+#directory {
+  font-weight: bold;
+}
+
+#menuButton {
+  color: white;
+  font-size: 35px;
+  display: inline;
+  cursor: pointer;
+}
+
+#openMenu {
+  display: none;
+  position: absolute;
+  list-style: none;
+  width: 10%;
+  background-color:rgb(129, 129, 129);
+  color: white;
+  padding: 10px;
+  line-height: 25px;
+}
+
+#openMenu li {
+  text-align: center;
+}
+
+#closeMenu {
+  font-size: 25px;
+  cursor: pointer;
+  text-align: center;
+}
+
+.menuHover {
+  cursor: pointer;
+}
+
+.menuHover:hover {
+  font-weight: bold;
+}
+
+.popup {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  width: 40%;
+  height: 40%; 
+  top: 60%;
+  left: 50%;
+  margin-top: -20%;
+  margin-left: -20%;
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(248, 248, 248);
+  border: solid;
+}
+
+.popupHeader {
+  background-color: rgb(161, 161, 161);
+  padding: 10px;
+  color: white;
+}
+
+.closePopup {
+  font-size: 25px;
+  cursor: pointer;
+  position: relative;
+  text-align: center;
+}
+
+.popupData {
+  padding: 10px;
+}
+
+.editButton:hover {
+  cursor: pointer;
+  color: orange;
+}
+
+.deleteButton:hover {
+  cursor: pointer;
+  color: red;
+}
+
