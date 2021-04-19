@@ -6,78 +6,74 @@
     include("config.php");
     $conn = new mysqli($cd_host, $cd_user, $cd_password, $cd_dbname, $cd_port, $cd_socket);
 
-    if (isset($_POST['saveDept'])) {
-        $name = $_POST['departmentname'];
-        $locationID = $_POST['location'];
+    if (isset($_POST['dName'], $_POST['dLocation'])) {
+        $name = $_POST['dName'];
+        $locationID = $_POST['dLocation'];
 
         $query = "INSERT INTO department (name, locationID) VALUES ('$name', '$locationID')";
         mysqli_query($conn, $query);
-        echo "<script type='text/javascript'>document.location='/CompanyDirectory/index.php';alert('New Department Added Successfully!')</script>";
         }
 
-    if (isset($_POST['saveLoc'])) {
-        $name = $_POST['locationname'];
+    if (isset($_POST['locName'])) {
+        $locName = $_POST['locName'];
 
-        $query = "INSERT INTO location (name) VALUES ('$name')";
+        $query = "INSERT INTO location (name) VALUES ('$locName')";
         mysqli_query($conn, $query);
-        echo "<script type='text/javascript'>document.location='/CompanyDirectory/index.php';alert('New Location Added Successfully!')</script>";
         }
 
-    if (isset($_POST['savePer'])) {
-        $firstname = $_POST['firstname'];
-        $lastname = $_POST['lastname'];
-        $jobtitle = $_POST['jobtitle'];
+    if (isset($_POST['fName'], $_POST['lName'], $_POST['jobTitle'], $_POST['email'], $_POST['departmentSelect'])) {
+        $firstname = $_POST['fName'];
+        $lastname = $_POST['lName'];
+        $jobtitle = $_POST['jobTitle'];
         $email = $_POST['email'];
-        $departmentID = $_POST['department'];
+        $departmentID = $_POST['departmentSelect'];
 
         $query = "INSERT INTO personnel (firstName, lastName, jobTitle, email, departmentID) VALUES ('$firstname', '$lastname', '$jobtitle', '$email', '$departmentID')";
         mysqli_query($conn, $query);
-        echo "<script type='text/javascript'>document.location='/CompanyDirectory/index.php';alert('New Staff Member Added Successfully!')</script>";
         }
 
-    if (isset($_POST['saveUpdate'])) {
-        $ufirstname = $_POST['ufirstname'];
-        $ulastname = $_POST['ulastname'];
+    if (isset($_POST['ufName'], $_POST['ulName'], $_POST['ujobTitle'], $_POST['uemail'], $_POST['udepartmentSelect'], $_POST['uid'])) {
+        $ufirstname = $_POST['ufName'];
+        $ulastname = $_POST['ulName'];
         $ujobtitle = $_POST['ujobtitle'];
         $uemail = $_POST['uemail'];
-        $udepartmentID = $_POST['udepartment'];
+        $udepartmentID = $_POST['udepartmentSelect'];
         $uid = $_POST['uid'];
 
         $query = "UPDATE personnel SET firstName='$ufirstname', lastName='$ulastname', jobTitle='$ujobtitle', email='$uemail', departmentID='$udepartmentID' WHERE personnel.id=$uid";
-        mysqli_query($conn, $query);     
-        echo "<script type='text/javascript'>document.location='/CompanyDirectory/index.php';alert('Staff Member Updated Successfully!')</script>";             
+        mysqli_query($conn, $query);                  
     }
         
-    if (isset($_POST['deleteDept'])) {
-        $id = $_POST['delDept'];
+    if (isset($_POST['delDeptSelect'])) {
+        $delDeptId = $_POST['delDeptSelect'];
 
-        $query = "SELECT * FROM personnel WHERE departmentID = $id";
+        $query = "SELECT * FROM personnel WHERE departmentID = $delDeptId";
         $result = mysqli_query($conn, $query);
 
         if (mysqli_num_rows($result)==0) {
-            $query2 = "DELETE FROM department WHERE department.id = $id";
+            $query2 = "DELETE FROM department WHERE department.id = $delDeptId";
             mysqli_query($conn, $query2);
-            echo "<script type='text/javascript'>document.location='/CompanyDirectory/index.php';alert('Department deleted successfully!')</script>";
+            http_response_code(200);
         } else {
-            echo "<script type='text/javascript'>document.location='/CompanyDirectory/index.php';alert('Cannot delete department whilst staffed!')</script>";
+            http_response_code(500);
         }    
         
         
         
     }
 
-    if (isset($_POST['deleteLoc'])) {
-        $id = $_POST['delLoc'];
+    if (isset($_POST['delLocSelect'])) {
+        $delLocid = $_POST['delLocSelect'];
 
-        $query = "SELECT * FROM department WHERE locationID = $id";
+        $query = "SELECT * FROM department WHERE locationID = $delLocid";
         $result = mysqli_query($conn, $query);
 
         if (mysqli_num_rows($result)==0) {
-            $query2 = "DELETE FROM location WHERE location.id = $id";
+            $query2 = "DELETE FROM location WHERE location.id = $delLocid";
             mysqli_query($conn, $query2);
-            echo "<script type='text/javascript'>document.location='/CompanyDirectory/index.php';alert('Location deleted successfully!')</script>";
+            http_response_code(200);
         } else {
-            echo "<script type='text/javascript'>document.location='/CompanyDirectory/index.php';alert('Cannot delete Location whilst staffed!')</script>";
+            http_response_code(500);
         }    
         
         

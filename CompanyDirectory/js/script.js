@@ -1,4 +1,4 @@
-var editor;
+$.fn.DataTable.ext.pager.numbers_length = 4;
 
 $('#menuButton').click(function() {
     $('#openMenu').show();
@@ -51,8 +51,140 @@ $('#delLoc').click(function() {
 $('#delCloseLoc').click(function() {
     $('#delLocPopup').hide();
 });
-
+//ADDING DEPARTMENTS
 $(document).ready(function () {
+
+    $('#deptForm').on('submit', function (event) {
+        event.preventDefault();
+
+        var dName = $("#dName").val();
+        var dLocation = $("#locationSelect").val();
+    
+        $.ajax({
+            type: "POST",
+            url: "php/server.php",
+            data: {
+                dName: dName,
+                dLocation: dLocation
+            },
+            success: function(data){
+                alert("New department added successfully!");
+            }
+        })
+    });
+//ADDING LOCATIONS
+    $('#locForm').on('submit', function (event) {
+        event.preventDefault();
+
+        var locName = $("#locName").val();
+    
+        $.ajax({
+            type: "POST",
+            url: "php/server.php",
+            data: {
+                locName: locName,
+            },
+            success: function(data){
+                alert("New location added successfully!");
+            }
+        })
+    });
+//ADDING PERSONNEL
+    $('#perForm').on('submit', function (event) {
+        event.preventDefault();
+
+        var fName = $("#fName").val();
+        var lName = $("#lName").val();
+        var jobTitle = $("#jobTitle").val();
+        var email = $("#email").val();
+        var departmentSelect = $("#departmentSelect").val();
+    
+        $.ajax({
+            type: "POST",
+            url: "php/server.php",
+            data: {
+                fName: fName,
+                lName: lName,
+                jobTitle: jobTitle,
+                email: email,
+                departmentSelect: departmentSelect
+            },
+            success: function(data){
+                alert("New staff member added!");
+            }
+        })
+    });
+//UPDATING PERSONNEL
+    $('#updateForm').on('submit', function (event) {
+        event.preventDefault();
+
+        var ufName = $("#ufName").val();
+        var ulName = $("#ulName").val();
+        var ujobTitle = $("#ujobTitle").val();
+        var uemail = $("#uemail").val();
+        var udepartmentSelect = $("#udepartmentSelect").val();
+        var uid = $("#uid").val();
+    
+        $.ajax({
+            type: "POST",
+            url: "php/server.php",
+            data: {
+                ufName: ufName,
+                ulName: ulName,
+                ujobTitle: ujobTitle,
+                uemail: uemail,
+                udepartmentSelect: udepartmentSelect,
+                uid: uid
+            },
+            success: function(data){
+                alert("Staff details updated!");
+            }
+        })
+    });
+
+    $('#delDeptForm').on('submit', function (event) {
+        event.preventDefault();
+
+        var delDeptSelect = $("#delDeptSelect").val();
+        var deleteConfirm = confirm("Are you sure?");
+        if (deleteConfirm == true) {
+            $.ajax({
+                type: "POST",
+                url: "php/server.php",
+                data: {
+                    delDeptSelect: delDeptSelect
+                },
+                success: function(data){
+                    alert("Department removed successfully!");
+                },
+                error: function() {
+                    alert("Cannot remove department whilst staffed!")
+                }
+            })
+        }   
+    });
+
+    $('#delLocForm').on('submit', function (event) {
+        event.preventDefault();
+
+        var delLocSelect = $("#delLocSelect").val();
+        var deleteConfirm = confirm("Are you sure?");
+        if (deleteConfirm == true) {
+            $.ajax({
+                type: "POST",
+                url: "php/server.php",
+                data: {
+                    delLocSelect: delLocSelect
+                },
+                success: function(data){
+                    alert("Location removed successfully!");
+                },
+                error: function() {
+                    alert("Cannot remove location whilst staffed!")
+                }
+            })
+        }   
+    });
 
     $.ajax({
         url: "php/getAll.php",
@@ -67,6 +199,12 @@ $(document).ready(function () {
                 var information = result.data; 
                  
                  $('#mydatatable').DataTable({
+                    responsive: true,
+                    "scrollX": false,                   
+                    columnDefs: [{
+                        "defaultContent": "-",
+                        "targets": "_all"
+                      }],
                     data: information,
                     columns: [
                         { data:'id', className: 'id', title: 'ID' },
@@ -246,3 +384,5 @@ $('#mydatatable').on('click','.delete',function(){
         $('#updatePopup').show();
     
     });
+
+
