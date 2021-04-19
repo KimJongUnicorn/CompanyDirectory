@@ -9,8 +9,9 @@
         <meta name="author" content="Harry Adams">
         <meta content="width=device-width, initial-scale=1" name="viewport">
         
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-        <link rel="stylesheet" href="https://cdn.datatables.net/1.10.24/css/dataTables.bootstrap4.min.css"/>
+        <link rel="stylesheet" href="css/bootstrap.min.css">
+        <link rel="stylesheet" href="css/datatables.css"/>
+        <link rel="stylesheet" href="css/responsiveDatatables.css"/>
         <link rel="stylesheet" href="css/companyDirectory.css">
 
         <script src="https://kit.fontawesome.com/6edf9b9c75.js" crossorigin="anonymous"></script>
@@ -50,10 +51,9 @@
                 <input type='text' id='dName' name="departmentname" placeholder="enter department name">
                 <br><br>
                 <select id='locationSelect' name='location'>                   
-                </select>   
+                </select>  
+                <input type="submit" name="saveDept" form="deptForm" value="Submit">Submit</input> 
             </form>
-
-            <button type="submit" name="saveDept" form="deptForm" value="Submit">Submit</button>
 
             </div>
             <div id="closeDept" class="closePopup">
@@ -68,9 +68,8 @@
             <div class="popupData">            
             <form action="php/server.php" method="post" id="locForm">
                 <input type='text' id='locName' name="locationname" placeholder="enter location name">
+                <input type="submit" name="saveLoc" form="locForm" value="Submit">Submit</input>
             </form>
-
-            <button type="submit" name="saveLoc" form="locForm" value="Submit">Submit</button>
 
             </div>
             <div id="closeLoc" class="closePopup">
@@ -94,9 +93,8 @@
                 <br><br>
                 <select id='departmentSelect' name='department'>                   
                 </select>   
+                <input type="submit" name="savePer" form="perForm" value="Submit">Submit</input>
             </form>
-
-            <button type="submit" name="savePer" form="perForm" value="Submit">Submit</button>
 
             </div>
             <div id="closePer" class="closePopup">
@@ -144,9 +142,8 @@
             <form action="php/server.php" method="post" id="delDeptForm">
                 <select id='delDeptSelect' name='delDept'>                   
                 </select>   
+                <input type="submit" name="deleteDept" form="delDeptForm" value="Submit">Delete</input>
             </form>
-
-            <button type="submit" name="deleteDept" form="delDeptForm" value="Submit">Delete</button>
 
             </div>
             <div id="delCloseDept" class="closePopup">
@@ -162,9 +159,8 @@
             <form action="php/server.php" method="post" id="delLocForm">
                 <select id='delLocSelect' name='delLoc'>                   
                 </select>   
+                <input type="submit" name="deleteLoc" form="delLocForm" value="Submit">Delete</input>
             </form>
-
-            <button type="submit" name="deleteLoc" form="delLocForm" value="Submit">Delete</button>
 
             </div>
             <div id="delCloseLoc" class="closePopup">
@@ -173,18 +169,18 @@
         </div>
         
         <div class="container mb-3 mt-3" id="table">
-            <table class="table table-striped" id="mydatatable">
+            <table class="table table-striped nowrap" id="mydatatable">
                 <thead>
                     <tr>
-                        <th>ID</th>
-                        <th>First Name</th>
-                        <th>Last Name</th>
-                        <th>Department</th>
-                        <th>Job Title</th>
-                        <th>email</th>
-                        <th>Location</th> 
-                        <th></th>
-                        <th></th>                        
+                        <th class="all">ID</th>
+                        <th class="all">First Name</th>
+                        <th class="all">Last Name</th>
+                        <th class="desktop">Department</th>
+                        <th class="desktop">Job Title</th>
+                        <th class="desktop">email</th>
+                        <th class="desktop">Location</th> 
+                        <th class="desktop"></th>
+                        <th class="desktop"></th>                        
                     </tr>
                 </thead>
                 
@@ -205,11 +201,11 @@
         </div>
         
         <script type="application/javascript" src="js/jquery-2.2.3.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-
-        <script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
-        <script src="https://cdn.datatables.net/1.10.24/js/dataTables.bootstrap4.min.js"></script>
+        <script type="application/javascript" src="js/bootstrap.min.js"></script>
+        <script type="application/javascript" src="js/jquery.dataTables.min.js"></script>
+        <script type="application/javascript" src="js/dataTables.bootstrap4.min.js"></script>
+        <script type="application/javascript" src="js/dataTables.responsive.min.js"></script>
+        <script type="application/javascript" src="js/responsive.bootstrap.min.js"></script>
         <script type="application/javascript" src="js/script.js"></script>
     </body>
 </html>
