@@ -1,7 +1,7 @@
 $.fn.DataTable.ext.pager.numbers_length = 4;
 
 $('#menuButton').click(function() {
-    $('#openMenu').show();
+    $('#openMenu').toggle();
 });
 
 $('#closeMenu').click(function() {
@@ -51,154 +51,93 @@ $('#delLoc').click(function() {
 $('#delCloseLoc').click(function() {
     $('#delLocPopup').hide();
 });
-//ADDING DEPARTMENTS
-$(document).ready(function () {
 
-    $('#deptForm').on('submit', function (event) {
-        event.preventDefault();
-
-        var dName = $("#dName").val();
-        var dLocation = $("#locationSelect").val();
-    
-        $.ajax({
-            type: "POST",
-            url: "php/server.php",
-            data: {
-                dName: dName,
-                dLocation: dLocation
-            },
-            success: function(data){
-                alert("New department added successfully!");
-            }
-        })
-    });
-//ADDING LOCATIONS
-    $('#locForm').on('submit', function (event) {
-        event.preventDefault();
-
-        var locName = $("#locName").val();
-    
-        $.ajax({
-            type: "POST",
-            url: "php/server.php",
-            data: {
-                locName: locName,
-            },
-            success: function(data){
-                alert("New location added successfully!");
-            }
-        })
-    });
-//ADDING PERSONNEL
-    $('#perForm').on('submit', function (event) {
-        event.preventDefault();
-
-        var fName = $("#fName").val();
-        var lName = $("#lName").val();
-        var jobTitle = $("#jobTitle").val();
-        var email = $("#email").val();
-        var departmentSelect = $("#departmentSelect").val();
-    
-        $.ajax({
-            type: "POST",
-            url: "php/server.php",
-            data: {
-                fName: fName,
-                lName: lName,
-                jobTitle: jobTitle,
-                email: email,
-                departmentSelect: departmentSelect
-            },
-            success: function(data){
-                alert("New staff member added!");
-            }
-        })
-    });
-//UPDATING PERSONNEL
-    $('#updateForm').on('submit', function (event) {
-        event.preventDefault();
-
-        var ufName = $("#ufName").val();
-        var ulName = $("#ulName").val();
-        var ujobTitle = $("#ujobTitle").val();
-        var uemail = $("#uemail").val();
-        var udepartmentSelect = $("#udepartmentSelect").val();
-        var uid = $("#uid").val();
-    
-        $.ajax({
-            type: "POST",
-            url: "php/server.php",
-            data: {
-                ufName: ufName,
-                ulName: ulName,
-                ujobTitle: ujobTitle,
-                uemail: uemail,
-                udepartmentSelect: udepartmentSelect,
-                uid: uid
-            },
-            success: function(data){
-                alert("Staff details updated!");
-            }
-        })
-    });
-
-    $('#delDeptForm').on('submit', function (event) {
-        event.preventDefault();
-
-        var delDeptSelect = $("#delDeptSelect").val();
-        var deleteConfirm = confirm("Are you sure?");
-        if (deleteConfirm == true) {
-            $.ajax({
-                type: "POST",
-                url: "php/server.php",
-                data: {
-                    delDeptSelect: delDeptSelect
-                },
-                success: function(data){
-                    alert("Department removed successfully!");
-                },
-                error: function() {
-                    alert("Cannot remove department whilst staffed!")
-                }
-            })
-        }   
-    });
-
-    $('#delLocForm').on('submit', function (event) {
-        event.preventDefault();
-
-        var delLocSelect = $("#delLocSelect").val();
-        var deleteConfirm = confirm("Are you sure?");
-        if (deleteConfirm == true) {
-            $.ajax({
-                type: "POST",
-                url: "php/server.php",
-                data: {
-                    delLocSelect: delLocSelect
-                },
-                success: function(data){
-                    alert("Location removed successfully!");
-                },
-                error: function() {
-                    alert("Cannot remove location whilst staffed!")
-                }
-            })
-        }   
-    });
-
+var table = '';
+var information = '';
+//POPULATING THE DEPARTMENT DROPDOWNS
+function populateDepts() {
     $.ajax({
-        url: "php/getAll.php",
+        url: "php/getAllDepartments.php",
         type: 'POST',
         dataType: 'json',
     
         success: function(result) {
 
             if (result.status.name == "ok") {
-                console.log(result.data)
+                $('#departmentSelect').html('');
+                $('#udepartmentSelect').html('');
+                $('#delDeptSelect').html('');               
 
-                var information = result.data; 
+                $.each(result.data, function(index) {
+
+                    $('#departmentSelect').append($('<option>',{
+                        value: result.data[index].id,
+                        text: result.data[index].name
+                    }));   
+                    $('#udepartmentSelect').append($('<option>',{
+                        value: result.data[index].id,
+                        text: result.data[index].name
+                    }));    
+                    $('#delDeptSelect').append($('<option>',{
+                        value: result.data[index].id,
+                        text: result.data[index].name
+                    }));               
+                 }); 
+
+
+            }
+        
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+            // your error code
+        }
+    }); 
+}
+//POPULATING THE LOCATION DROPDOWNS
+function populateLocs() {
+    $.ajax({
+        url: "php/getAllLocations.php",
+        type: 'POST',
+        dataType: 'json',
+    
+        success: function(result) {
+
+            if (result.status.name == "ok") {
+                $('#locationSelect').html('');
+                $('#delLocSelect').html(''); 
+
+                $.each(result.data, function(index) {
+
+                    $('#locationSelect').append($('<option>',{
+                        value: result.data[index].id,
+                        text: result.data[index].name
+                    })); 
+                    $('#delLocSelect').append($('<option>',{
+                        value: result.data[index].id,
+                        text: result.data[index].name
+                    }));                     
+                 }); 
+
+
+            }
+        
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+            // your error code
+        }
+    }); 
+}
+//LOADING THE TABLE DATA
+$(document).ready(function () {
+
+    populateDepts();
+    populateLocs();
                  
-                 $('#mydatatable').DataTable({
+                table = $('#mydatatable').DataTable({
+                    "ajax": {
+                        "url": "php/getAll.php",
+                        "type": "POST"
+                    },
                     responsive: true,
                     "scrollX": false,                   
                     columnDefs: [{
@@ -252,93 +191,9 @@ $(document).ready(function () {
                      
                  });
 
-            }
-        
-        },
-        error: function(jqXHR, textStatus, errorThrown) {
-            // your error code
-        }
-    }); 
-
 });
 
-$(document).ready(function () {
-
-    $.ajax({
-        url: "php/getAllLocations.php",
-        type: 'POST',
-        dataType: 'json',
-    
-        success: function(result) {
-
-            if (result.status.name == "ok") {
-                $('#locationSelect').html('');
-                $('#delLocSelect').html(''); 
-
-                $.each(result.data, function(index) {
-
-                    $('#locationSelect').append($('<option>',{
-                        value: result.data[index].id,
-                        text: result.data[index].name
-                    })); 
-                    $('#delLocSelect').append($('<option>',{
-                        value: result.data[index].id,
-                        text: result.data[index].name
-                    }));                     
-                 }); 
-
-
-            }
-        
-        },
-        error: function(jqXHR, textStatus, errorThrown) {
-            // your error code
-        }
-    }); 
-
-});
-
-$(document).ready(function () {
-
-    $.ajax({
-        url: "php/getAllDepartments.php",
-        type: 'POST',
-        dataType: 'json',
-    
-        success: function(result) {
-
-            if (result.status.name == "ok") {
-                $('#departmentSelect').html('');
-                $('#udepartmentSelect').html('');
-                $('#delDeptSelect').html('');               
-
-                $.each(result.data, function(index) {
-
-                    $('#departmentSelect').append($('<option>',{
-                        value: result.data[index].id,
-                        text: result.data[index].name
-                    }));   
-                    $('#udepartmentSelect').append($('<option>',{
-                        value: result.data[index].id,
-                        text: result.data[index].name
-                    }));    
-                    $('#delDeptSelect').append($('<option>',{
-                        value: result.data[index].id,
-                        text: result.data[index].name
-                    }));               
-                 }); 
-
-
-            }
-        
-        },
-        error: function(jqXHR, textStatus, errorThrown) {
-            // your error code
-        }
-    }); 
-
-});
-
+//DELETING STAFF
 $('#mydatatable').on('click','.delete',function(){ 
     var row = $(this).closest('tr');
     var id = row.find('.id').text();
@@ -353,13 +208,13 @@ $('#mydatatable').on('click','.delete',function(){
             },
             success: function(response) {
                     alert("Record deleted.");
-                    location.reload();
+                    table.ajax.reload(null, false);
                 }
         
         });
     }
     });
-
+//POPULATING THE EDIT PERSONNEL FORM
     $('#mydatatable').on('click','.edit',function(){
         var row = $(this).closest('tr');
         var id = row.find('.id').text();
@@ -383,6 +238,157 @@ $('#mydatatable').on('click','.delete',function(){
 
         $('#updatePopup').show();
     
+    });
+
+//ADDING DEPARTMENTS
+    $('#deptForm').on('submit', function (event) {
+        event.preventDefault();
+
+        var dName = $("#dName").val();
+        var dLocation = $("#locationSelect").val();
+    
+        $.ajax({
+            type: "POST",
+            url: "php/server.php",
+            data: {
+                dName: dName,
+                dLocation: dLocation
+            },
+            success: function(data){
+                alert("New department added successfully!");
+                table.ajax.reload(null, false);
+                populateDepts();
+                $('#deptPopup').hide();
+            }
+        })
+    });
+//ADDING LOCATIONS
+    $('#locForm').on('submit', function (event) {
+        event.preventDefault();
+
+        var locName = $("#locName").val();
+    
+        $.ajax({
+            type: "POST",
+            url: "php/server.php",
+            data: {
+                locName: locName,
+            },
+            success: function(data){
+                alert("New location added successfully!");
+                table.ajax.reload(null, false);
+                populateLocs();
+                $('#locPopup').hide();
+            }
+        })
+    });
+//ADDING PERSONNEL
+    $('#perForm').on('submit', function (event) {
+        event.preventDefault();
+
+        var fName = $("#fName").val();
+        var lName = $("#lName").val();
+        var jobTitle = $("#jobTitle").val();
+        var email = $("#email").val();
+        var departmentSelect = $("#departmentSelect").val();
+    
+        $.ajax({
+            type: "POST",
+            url: "php/server.php",
+            data: {
+                fName: fName,
+                lName: lName,
+                jobTitle: jobTitle,
+                email: email,
+                departmentSelect: departmentSelect
+            },
+            success: function(data){
+                alert("New staff member added!");
+                table.ajax.reload(null, false);
+                $('#perPopup').hide();
+            }
+        })
+    });
+//UPDATING PERSONNEL
+    $('#updateForm').on('submit', function (event) {
+        event.preventDefault();
+
+        var ufName = $("#ufName").val();
+        var ulName = $("#ulName").val();
+        var ujobTitle = $("#ujobTitle").val();
+        var uemail = $("#uemail").val();
+        var udepartmentSelect = $("#udepartmentSelect").val();
+        var uid = $("#uid").val();
+    
+        $.ajax({
+            type: "POST",
+            url: "php/server.php",
+            data: {
+                ufName: ufName,
+                ulName: ulName,
+                ujobTitle: ujobTitle,
+                uemail: uemail,
+                udepartmentSelect: udepartmentSelect,
+                uid: uid
+            },
+            success: function(data){
+                alert("Staff details updated!");
+                table.ajax.reload(null, false);
+                $('#updatePopup').hide();
+            }
+        })
+    });
+
+    $('#delDeptForm').on('submit', function (event) {
+        event.preventDefault();
+
+        var delDeptSelect = $("#delDeptSelect").val();
+        var deleteConfirm = confirm("Are you sure?");
+        if (deleteConfirm == true) {
+            $.ajax({
+                type: "POST",
+                url: "php/server.php",
+                data: {
+                    delDeptSelect: delDeptSelect
+                },
+                success: function(data){
+                    alert("Department removed successfully!");
+                    table.ajax.reload(null, false);
+                    populateDepts();
+                    $('#delDeptPopup').hide();
+                },
+                error: function() {
+                    alert("Cannot remove department whilst staffed!")
+                    $('#delDeptPopup').hide();
+                }
+            })
+        }   
+    });
+
+    $('#delLocForm').on('submit', function (event) {
+        event.preventDefault();
+
+        var delLocSelect = $("#delLocSelect").val();
+        var deleteConfirm = confirm("Are you sure?");
+        if (deleteConfirm == true) {
+            $.ajax({
+                type: "POST",
+                url: "php/server.php",
+                data: {
+                    delLocSelect: delLocSelect
+                },
+                success: function(data){
+                    alert("Location removed successfully!");
+                    table.ajax.reload(null, false);
+                    populateLocs();
+                    $('#delLocPopup').hide();
+                },
+                error: function() {
+                    alert("Cannot remove location whilst staffed!")
+                    $('#delLocPopup').hide();
+                }
+            })
+        }   
     });
 
 
