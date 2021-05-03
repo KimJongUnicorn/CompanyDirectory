@@ -35,7 +35,7 @@
     if (isset($_POST['ufName'], $_POST['ulName'], $_POST['ujobTitle'], $_POST['uemail'], $_POST['udepartmentSelect'], $_POST['uid'])) {
         $ufirstname = $_POST['ufName'];
         $ulastname = $_POST['ulName'];
-        $ujobtitle = $_POST['ujobtitle'];
+        $ujobtitle = $_POST['ujobTitle'];
         $uemail = $_POST['uemail'];
         $udepartmentID = $_POST['udepartmentSelect'];
         $uid = $_POST['uid'];
@@ -56,9 +56,7 @@
             http_response_code(200);
         } else {
             http_response_code(500);
-        }    
-        
-        
+        }          
         
     }
 

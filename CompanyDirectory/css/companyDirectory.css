@@ -6,6 +6,7 @@ body {
   background-color: rgb(161, 161, 161);
   padding: 10px;
   width: 100%;
+  position: relative;
 }
 
 h1 {
@@ -31,6 +32,7 @@ h1 {
   position: absolute;
   list-style: none;
   width: auto;
+  padding: 20px;
   background-color:rgb(129, 129, 129);
   color: white;
   padding: 10px;
@@ -42,12 +44,6 @@ h1 {
   text-align: center;
 }
 
-#closeMenu {
-  font-size: 25px;
-  cursor: pointer;
-  text-align: center;
-}
-
 .menuHover {
   cursor: pointer;
 }
@@ -56,58 +52,34 @@ h1 {
   font-weight: bold;
 }
 
-.popup {
-  display: none; /* Hidden by default */
-  position: fixed; /* Stay in place */
-  z-index: 1; /* Sit on top */
-  width: auto;
-  height: auto; 
-  top: 60%;
-  left: 60%;
-  margin-top: -20%;
-  margin-left: -20%;
-  overflow: auto; /* Enable scroll if needed */
-  background-color: rgb(248, 248, 248);
-  border: solid;
-  z-index: 201;
+#scrollButton {
+  position: fixed;
+  bottom: 10px;
+  right: 10px;
 }
 
-.popupHeader {
-  background-color: rgb(161, 161, 161);
-  padding: 10px;
-  color: white;
+#refreshButton {
+  position: fixed;
+  bottom: 60px;
+  right: 10px;
 }
 
-.closePopup {
-  font-size: 25px;
-  cursor: pointer;
+#addPer, #addDept, #addLoc {
   position: relative;
-  text-align: center;
+  top: 30px;
+  z-index: 1000;
+  background-color: green;
 }
 
-.popupData {
-  padding: 10px;
-}
-
-.editButton:hover {
-  cursor: pointer;
-  color: orange;
-}
-
-.deleteButton:hover {
-  cursor: pointer;
-  color: red;
-}
-
-#table {
+table {
   width: 100%;
 }
-
-table{
-  width: 100%;
-} 
 
 #mydatatable {
+  width: 90%;
+}
+
+#tab-table1, #tab-table2, #tab-table3 {
   width: 100%;
 }
 
@@ -116,16 +88,45 @@ table{
     font-size: 2em;
   }
 
-  #openMenu {
-    font-size: 0.8em;
+  table {
+    font-size: 0.9em;
   }
 
-  .popup {
-    font-size: 0.8em;
-    top: 30%;
-    left: 40%;
+  tfoot {
+    display: none;
   }
-  .popup h2 {
+
+  #scrollButton {
+    position: absolute;
+    height: 40px;
+    bottom: 10px;
+    right: 10px;
+  }
+  
+  #refreshButton {
+    position: absolute;
+    bottom: 10px;
+    right: 60px;
+    height: 40px;
+  }
+
+  #company, #directory {
     font-size: 1.5em;
+  }
+
+  #addPer, #addDept, #addLoc {
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    z-index: 1000;
+    font-size: 0.74em;
+    height: 30px;
+    width: 60px;
+  }
+
+  #tab-table1 .btn {
+    width: 30px;
+    height: 30px;
+    font-size: 0.8em;
   }
 }

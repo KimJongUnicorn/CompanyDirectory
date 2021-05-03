@@ -18,187 +18,420 @@
     </head>
     <body>
         <nav id="headerBar">                      
-            <i class="fas fa-bars" id="menuButton"></i>
-            &nbsp&nbsp&nbsp
             <h1 id="company">Company</h1>
             <h1 id="directory">Directory</h1>
         </nav>
-        <div>
-            <ul id="openMenu">
-                <li id="addDept" class="menuHover">Add Department</li>
-                <hr>
-                <li id="addLoc" class="menuHover">Add Location</li>
-                <hr>
-                <li id="addPer" class="menuHover">Add Personnel</li>
-                <hr>
-                <li id="delDept" class="menuHover">Delete Department</li>
-                <hr>
-                <li id="delLoc" class="menuHover">Delete Location</li>
-                <hr>
 
-                <div id="closeMenu">
-                    <i class="fa fa-times"></i>
+        <!--ADD DEPARTMENT MODAL-->
+
+        <div class="modal fade" id="deptPopup" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-mdb-backdrop="true" data-mdb-keyboard="true">
+            <div class="modal-dialog   modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Add New Department</h5>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                    <form action="php/server.php" method="post" id="deptForm" class="form-horizontal">
+                    <div class="form-group">
+                        <label class='col-auto control-label' for='textinput'>Department Name</label>
+                        <div class="col-md-7">
+                            <input type='text' id='dName' name="departmentname" placeholder="enter department name" class="form-control input-md">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class='col-auto control-label' for='selectbasic'>Location</label>
+                        <div class="col-md-7">
+                            <select id='locationSelect' name='location' class="form-control"></select>
+                        </div>        
+                    </div>    
+                    </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" id="closeDept" class="btn btn-secondary" data-mdb-dismiss="modal">Close</button>
+                        <input type="submit" class="btn btn-primary" name="saveDept" form="deptForm" value="Submit"></input> 
+                    </div>
                 </div>
-            </ul>
-        </div>
-
-        <div id="deptPopup" class="popup">
-            <div class="popupHeader">
-                <h2>Add New Department</h2>
-            </div>
-            <div class="popupData">            
-            <form action="php/server.php" method="post" id="deptForm">
-                <input type='text' id='dName' name="departmentname" placeholder="enter department name">
-                <br><br>
-                <select id='locationSelect' name='location'>                   
-                </select>  
-                <input type="submit" name="saveDept" form="deptForm" value="Submit">Submit</input> 
-            </form>
-
-            </div>
-            <div id="closeDept" class="closePopup">
-                <i class="fa fa-times"></i>
             </div>
         </div>
 
-        <div id="locPopup" class="popup">
-            <div class="popupHeader">
-                <h2>Add New Location</h2>
-            </div>
-            <div class="popupData">            
-            <form action="php/server.php" method="post" id="locForm">
-                <input type='text' id='locName' name="locationname" placeholder="enter location name">
-                <input type="submit" name="saveLoc" form="locForm" value="Submit">Submit</input>
-            </form>
+        <div class="alert alert-success" id="deptAlert" role="alert" style="display: none">
+        New department added successfully!
+        </div>
 
-            </div>
-            <div id="closeLoc" class="closePopup">
-                <i class="fa fa-times"></i>
+        <!--ADD LOCATION MODAL-->
+
+        <div class="modal fade" id="locPopup" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-mdb-backdrop="true" data-mdb-keyboard="true">
+            <div class="modal-dialog   modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Add New Location</h5>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                    <form action="php/server.php" method="post" id="locForm">
+                    <div class="form-group">
+                        <label class='col-auto control-label' for='textinput'>Location Name</label>
+                        <div class='col-md-7'>
+                            <input type='text' id='locName' name="locationname" placeholder="enter location name" class="form-control input-md">
+                        </div>
+                    </div>
+                    </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" id="closeLoc" class="btn btn-secondary" data-mdb-dismiss="modal">Close</button>
+                        <input type="submit" class="btn btn-primary" name="saveLoc" form="locForm" value="Submit"></input> 
+                    </div>
+                </div>
             </div>
         </div>
 
-        <div id="perPopup" class="popup">
-            <div class="popupHeader">
-                <h2>Add New Staff Member</h2>
-            </div>
-            <div class="popupData">            
-            <form action="php/server.php" method="post" id="perForm">
-                <input type='text' id='fName' name="firstname" placeholder="First Name">
-                <br><br>
-                <input type='text' id='lName' name="lastname" placeholder="Last Name">
-                <br><br>
-                <input type='text' id='jobTitle' name="jobtitle" placeholder="Job Title">
-                <br><br>
-                <input type='text' id='email' name="email" placeholder="Email Address">
-                <br><br>
-                <select id='departmentSelect' name='department'>                   
-                </select>   
-                <input type="submit" name="savePer" form="perForm" value="Submit">Submit</input>
-            </form>
+        <div class="alert alert-success" id="locAlert" role="alert" style="display: none">
+        New location added successfully!
+        </div>
 
-            </div>
-            <div id="closePer" class="closePopup">
-                <i class="fa fa-times"></i>
+        <!--ADD PERSONNEL MODAL-->
+
+        <div class="modal fade" id="perPopup" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-mdb-backdrop="true" data-mdb-keyboard="true">
+            <div class="modal-dialog   modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Add New Staff Member</h5>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                    <form action="php/server.php" method="post" id="perForm">
+                        <div class="form-group">
+                            <label class='col-auto control-label' for='textinput'>First Name</label>
+                            <div class='col-md-7'>
+                                <input type='text' id='fName' name="firstname" placeholder="First Name" class="form-control input-md">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class='col-auto control-label' for='textinput'>Last Name</label>
+                            <div class='col-md-7'>
+                                <input type='text' id='lName' name="lastname" placeholder="Last Name" class="form-control input-md">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class='col-auto control-label' for='textinput'>Job Title</label>
+                            <div class='col-md-7'>
+                                <input type='text' id='jobTitle' name="jobtitle" placeholder="Job Title" class="form-control input-md">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class='col-auto control-label' for='textinput'>email</label>
+                            <div class='col-md-7'>
+                                <input type='text' id='email' name="email" placeholder="Email Address" class="form-control input-md">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class='col-auto control-label' for='selectbasic'>Department</label>
+                            <div class='col-md-7'>
+                                <select id='departmentSelect' name='department' class="form-control"></select>     
+                            </div>
+                        </div>                 
+                    </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" id="closePer" class="btn btn-secondary" data-mdb-dismiss="modal">Close</button>
+                        <input type="submit" class="btn btn-primary" name="savePer" form="perForm" value="Submit"></input> 
+                    </div>
+                </div>
             </div>
         </div>
 
-        <div id="updatePopup" class="popup">
-            <div class="popupHeader">
-                <h2>Update Staff Details</h2>
-            </div>
-            <div class="popupData">            
-            <form action="php/server.php" method="post" id="updateForm">
-                <input type='hidden' id='uid' name='uid'>
-                <label for="ufName">First Name: </label>
-                <input type='text' id='ufName' name="ufirstname" placeholder="">
-                <br><br>
-                <label for="ulName">Last Name: </label>
-                <input type='text' id='ulName' name="ulastname" placeholder="">
-                <br><br>
-                <label for="ujobTitle">Job Title: </label>
-                <input type='text' id='ujobTitle' name="ujobtitle" placeholder="">
-                <br><br>
-                <label for="uemail">Email: </label>
-                <input type='text' id='uemail' name="uemail" placeholder="">
-                <br><br>
-                <select id='udepartmentSelect' name='udepartment'>                   
-                </select>   
-            </form>
+        <div class="alert alert-success" id="perAlert" role="alert" style="display: none">
+        New staff member added successfully!
+        </div>
 
-            <button id= "updateButton" type="submit" name="saveUpdate" form="updateForm" value="Submit">Submit</button>
+        <!--UPDATE PERSONNEL MODAL-->
 
-            </div>
-            <div id="closeUpdate" class="closePopup">
-                <i class="fa fa-times"></i>
+        <div class="modal fade" id="updatePopup" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-mdb-backdrop="true" data-mdb-keyboard="true">
+            <div class="modal-dialog   modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Update Staff Details</h5>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                    <form action="php/server.php" method="post" id="updateForm" class="form-horizontal">
+                        <input type='hidden' id='uid' name='uid'>
+                        <div class="form-group">
+                            <label class='col-md-4 control-label' for='textinput'>First Name</label>
+                            <div class='col-md-8'>
+                                <input type='text' id='ufName' name="ufirstname" class="form-control input-md" placeholder="First Name">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class='col-md-4 control-label' for='textinput'>Last Name</label>
+                            <div class="col-md-8">
+                                <input type='text' id='ulName' name="ulastname" class="form-control input-md" placeholder="Last Name">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class='col-md-4 control-label' for='textinput'>Job Title</label>
+                            <div class="col-md-8">
+                                <input type='text' id='ujobTitle' name="ujobtitle" class="form-control input-md" placeholder="Job Title">
+                            </div>    
+                        </div>  
+                        <div class="form-group">
+                            <label class='col-md-4 control-label' for='textinput'>email</label>
+                            <div class="col-md-8">
+                                <input type='text' id='uemail' name="uemail" class="form-control input-md" placeholder="email">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class='col-md-4 control-label' for='selectbasic'>Department</label>
+                            <div class="col-md-8">
+                                <select id='udepartmentSelect' name='udepartment' class="form-control"></select> 
+                            </div>
+                        </div>  
+                    </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" id="closeUpdate" class="btn btn-secondary" data-mdb-dismiss="modal">Close</button>
+                        <input type="submit" class="btn btn-primary" name="saveUpdate" form="updateForm" value="Submit"></input> 
+                    </div>
+                </div>
             </div>
         </div>
 
+        <div class="alert alert-success" id="updateAlert" role="alert" style="display: none">
+        Staff details updated!
+        </div>
 
-        <div id="delDeptPopup" class="popup">
-            <div class="popupHeader">
-                <h2>Delete Department</h2>
-            </div>
-            <div class="popupData">            
-            <form action="php/server.php" method="post" id="delDeptForm">
-                <select id='delDeptSelect' name='delDept'>                   
-                </select>   
-                <input type="submit" name="deleteDept" form="delDeptForm" value="Submit">Delete</input>
-            </form>
+        <!--DELETE STAFF MODAL-->
 
-            </div>
-            <div id="delCloseDept" class="closePopup">
-                <i class="fa fa-times"></i>
+        <div class="modal fade" id="delPopup" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-mdb-backdrop="true" data-mdb-keyboard="true">
+            <div class="modal-dialog   modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="delTitle"></h5>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <p>Are you sure?</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" id="closeDel" class="btn btn-secondary" data-mdb-dismiss="modal">No</button>
+                        <input type="submit" class="btn btn-primary" name="saveDel" id="saveDel" value="Yes"></input> 
+                    </div>
+                </div>
             </div>
         </div>
 
-        <div id="delLocPopup" class="popup">
-            <div class="popupHeader">
-                <h2>Delete Department</h2>
-            </div>
-            <div class="popupData">            
-            <form action="php/server.php" method="post" id="delLocForm">
-                <select id='delLocSelect' name='delLoc'>                   
-                </select>   
-                <input type="submit" name="deleteLoc" form="delLocForm" value="Submit">Delete</input>
-            </form>
-
-            </div>
-            <div id="delCloseLoc" class="closePopup">
-                <i class="fa fa-times"></i>
-            </div>
-        </div>
+        <div class="alert alert-danger" id="delAlert" role="alert" style="display: none">
         
-        <div class="container mb-3 mt-3" id="table">
-            <table class="table table-striped nowrap" id="mydatatable">
-                <thead>
-                    <tr>
-                        <th class="all">ID</th>
-                        <th class="all">First Name</th>
-                        <th class="all">Last Name</th>
-                        <th class="desktop">Department</th>
-                        <th class="desktop">Job Title</th>
-                        <th class="desktop">email</th>
-                        <th class="desktop">Location</th> 
-                        <th class="desktop"></th>
-                        <th class="desktop"></th>                        
-                    </tr>
-                </thead>
-                
-                <tfoot>
-                    <tr>
-                        <th>ID</th>
-                        <th>First Name</th>
-                        <th>Last Name</th>
-                        <th>Department</th>
-                        <th>Job Title</th>
-                        <th>email</th>
-                        <th>Location</th>
-                        <th></th>   
-                        <th></th>                        
-                    </tr>
-                </tfoot>
-            </table>
         </div>
+
+        <!--DELETE DEPARTMENT MODAL-->
+
+        <div class="modal fade" id="delDeptPopup" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-mdb-backdrop="true" data-mdb-keyboard="true">
+            <div class="modal-dialog   modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Remove Department</h5>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                    <form action="php/server.php" method="post" id="delDeptForm">
+                    <div class="form-group">
+                            <label class='col-md-4 control-label' for='selectbasic'>Department</label>
+                            <div class="col-md-8">
+                                <select id='delDeptSelect' name='delDept' class="form-control"></select>  
+                            </div>                
+                    </div>       
+                    </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" id="delCloseDept" class="btn btn-secondary" data-mdb-dismiss="modal">Close</button>
+                        <input type="submit" class="btn btn-primary" name="deleteDept" form="delDeptForm" id="deleteDept" value="Delete"></input> 
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--DELETE DEPARTMENT CONFIRMATION MODAL-->
+
+        <div class="modal fade" id="delDeptConfirmPopup" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-mdb-backdrop="true" data-mdb-keyboard="true">
+            <div class="modal-dialog   modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="delDeptTitle"></h5>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <p>Are you sure?</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" id="closeDelDept" class="btn btn-secondary" data-mdb-dismiss="modal">No</button>
+                        <input type="submit" class="btn btn-primary" name="saveDelDept" id="saveDelDept" value="Yes"></input> 
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="alert alert-danger" id="delDeptAlert" role="alert" style="display: none">
+        
+        </div>
+
+        <!--DELETE LOCATION MODAL-->
+
+        <div class="modal fade" id="delLocPopup" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-mdb-backdrop="true" data-mdb-keyboard="true">
+            <div class="modal-dialog   modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Remove Location</h5>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                    <form action="php/server.php" method="post" id="delLocForm">
+                    <div class="form-group">
+                        <label class='col-md-4 control-label' for='selectbasic'>Location</label>
+                        <div class="col-md-8">
+                            <select id='delLocSelect' name='delLoc' class="form-control"></select>  
+                        </div>
+                    </div> 
+                    </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" id="delCloseLoc" class="btn btn-secondary" data-mdb-dismiss="modal">Close</button>
+                        <input type="submit" class="btn btn-primary" name="deleteLoc" form="delLocForm" id="deleteLoc" value="Delete"></input> 
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--DELETE LOCATION CONFIRMATION MODAL-->
+
+        <div class="modal fade" id="delLocConfirmPopup" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-mdb-backdrop="true" data-mdb-keyboard="true">
+            <div class="modal-dialog   modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="delLocTitle"></h5>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <p>Are you sure?</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" id="closeDelLoc" class="btn btn-secondary" data-mdb-dismiss="modal">No</button>
+                        <input type="submit" class="btn btn-primary" name="saveDelLoc" id="saveDelLoc" value="Yes"></input> 
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="alert alert-danger" id="delLocAlert" role="alert" style="display: none">
+        
+        </div>
+
+        <!--TABLE-->
+        <ul class="nav nav-tabs style-1" role="tablist">
+            <li class="active">
+                <a href="#tab-table1" data-toggle="tab">Personnel</a>
+            </li>
+            <li>
+                <a href="#tab-table2" data-toggle="tab">Departments</a>
+            </li>
+            <li>
+                <a href="#tab-table3" data-toggle="tab">Locations</a>
+            </li>
+        </ul>
+        <div class="tab-content">
+            <div class="tab-pane active container-fluid" id="tab-table1">
+                <div>
+                    <button type="button" id="addPer" class="btn btn-secondary text-right"><i class="fas fa-user-plus"></i></button>
+                </div>
+                <table class="table table-striped wrap" id="mydatatable">
+                    <thead>
+                        <tr>
+                            <th class="all">ID</th>
+                            <th class="all">First Name</th>
+                            <th class="all">Last Name</th>
+                            <th class="desktop">Department</th>
+                            <th class="desktop">Location</th>
+                            <th class="desktop">Job Title</th>
+                            <th class="desktop">email</th> 
+                            <th class="all"></th>
+                            <th class="all"></th>                        
+                        </tr>
+                    </thead>
+                    
+                    <tfoot>
+                        <tr>
+                            <th>ID</th>
+                            <th>First Name</th>
+                            <th>Last Name</th>
+                            <th>Department</th>
+                            <th>Job Title</th>
+                            <th>email</th>
+                            <th>Location</th>
+                            <th></th>   
+                            <th></th>                        
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+            <div class="tab-pane container-fluid" id="tab-table2">
+                <div>
+                    <button type="button" id="addDept" class="btn btn-secondary text-right"><i class="fas fa-users"></i>&nbsp&nbsp<i class="fas fa-plus"></i></button>
+                </div>
+                <table class="table table-striped wrap" id="mydatatable2">
+                    <thead>
+                        <tr>
+                            <th class="all">ID</th>
+                            <th class="all">Name</th>
+                            <th class="all">Location</th>
+                            <th class="all"></th>                      
+                        </tr>
+                    </thead>
+                    
+                    <tfoot>
+                        <tr>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>Location</th>
+                            <th></th>                      
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+            <div class="tab-pane container-fluid" id="tab-table3">
+                <div>
+                    <button type="button" id="addLoc" class="btn btn-secondary text-right"><i class="fas fa-globe-americas"></i>&nbsp&nbsp<i class="fas fa-plus"></i></button>
+                </div>
+                <table class="table table-striped wrap" id="mydatatable3">
+                    <thead>
+                        <tr>
+                            <th class="all">ID</th>
+                            <th class="all">Name</th>
+                            <th class="all"></th>                      
+                        </tr>
+                    </thead>
+                    
+                    <tfoot>
+                        <tr>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th></th>                      
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+
+
+        <div id="scrollButton">
+            <button type="button" class="btn btn-secondary text-right"><i class="fas fa-arrow-up"></i></button>
+        </div>
+
+        <div id="refreshButton">
+            <button type="button" class="btn btn-secondary text-right"><i class="fas fa-sync-alt"></i></button>
+        </div>
+
+        <!--SCRIPTS-->
         
         <script type="application/javascript" src="js/jquery-2.2.3.min.js"></script>
         <script type="application/javascript" src="js/bootstrap.min.js"></script>
