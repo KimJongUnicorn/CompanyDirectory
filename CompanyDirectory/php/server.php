@@ -47,7 +47,7 @@
     if (isset($_POST['delDeptSelect'])) {
         $delDeptId = $_POST['delDeptSelect'];
 
-        $query = "SELECT * FROM personnel WHERE departmentID = $delDeptId";
+        $query = "SELECT 1 FROM personnel WHERE departmentID = $delDeptId";
         $result = mysqli_query($conn, $query);
 
         if (mysqli_num_rows($result)==0) {
@@ -63,7 +63,7 @@
     if (isset($_POST['delLocSelect'])) {
         $delLocid = $_POST['delLocSelect'];
 
-        $query = "SELECT * FROM department WHERE locationID = $delLocid";
+        $query = "SELECT 1 FROM department WHERE locationID = $delLocid";
         $result = mysqli_query($conn, $query);
 
         if (mysqli_num_rows($result)==0) {

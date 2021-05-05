@@ -262,6 +262,13 @@ $('#scrollButton').click(function() {
 $('#refreshButton').click(function() {
     table.ajax.reload(null, false);
     table2.ajax.reload(null, false);
+    table3.ajax.reload(null, false);
+});
+
+$('.nav-link').click(function() {
+    $($.fn.dataTable.tables(true)).DataTable()
+      .columns.adjust()
+      .responsive.recalc();
 });
 
 //DELETING STAFF
@@ -298,27 +305,47 @@ $('#mydatatable').on('click','.deletePer',function(){
     $('#mydatatable').on('click','.editPer',function(){
         var row = $(this).closest('tr');
         var id = $('#mydatatable').DataTable().row(row).data().id;
-        var fName = row.find('.fName').text();
-        var lName = row.find('.lName').text();
-        var job = row.find('.job').text();
-        var email = row.find('.email').text();
 
-        var idNum = parseInt(id, 10);
+        $.ajax({
+            url: 'php/getPersonnel.php',
+            type: 'POST',
+            dataType: 'json',
+            data: {
+                id: id
+            },
+            success: function(result) {
 
-        if (Number.isInteger(idNum)) {
-            console.log(id);
-        }
-        
+                if (result.status.name == "ok") {
+                    var fName = result.data[0].firstName;
+                    var lName = result.data[0].lastName;
+                    var job = result.data[0].jobTitle;
+                    var email = result.data[0].email;
+                    var idNum = parseInt(id, 10);
 
-        $('#ufName').val(fName);
-        $('#ulName').val(lName);
-        $('#ujobTitle').val(job);
-        $('#uemail').val(email);
-        $('#uid').val(idNum);
+                    if (Number.isInteger(idNum)) {
+                        console.log(id);
+                    }
+                    
+                    $('#ufName').val(fName);
+                    $('#ulName').val(lName);
+                    $('#ujobTitle').val(job);
+                    $('#uemail').val(email);
+                    $('#uid').val(idNum);
 
-        $('#updatePopup').modal('show');
+                    $('#updatePopup').modal('show');
+                        
     
+                }
+            
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                // your error code
+            }
+        
+        });   
     });
+
+                
 
 //ADDING DEPARTMENTS
     $('#deptForm').on('submit', function (event) {

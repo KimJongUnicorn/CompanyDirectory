@@ -14,9 +14,18 @@
         <link rel="stylesheet" href="css/responsiveDatatables.css"/>
         <link rel="stylesheet" href="css/companyDirectory.css">
 
+        <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+
         <script src="https://kit.fontawesome.com/6edf9b9c75.js" crossorigin="anonymous"></script>
     </head>
     <body>
+        <div class="preloader-wrapper">
+            <div class="preloader d-flex justify-content-center align-items-center">
+                <img src="assets/1485.gif">
+            </div>
+        </div>
         <nav id="headerBar">                      
             <h1 id="company">Company</h1>
             <h1 id="directory">Directory</h1>
@@ -328,21 +337,21 @@
         </div>
 
         <!--TABLE-->
-        <ul class="nav nav-tabs style-1" role="tablist">
-            <li class="active">
-                <a href="#tab-table1" data-toggle="tab">Personnel</a>
+        <ul class="nav nav-tabs" role="tablist">
+            <li class="nav-item">
+                <a class="nav-link active" href="#tab-table1" data-toggle="tab">Personnel</a>
             </li>
             <li>
-                <a href="#tab-table2" data-toggle="tab">Departments</a>
+                <a class="nav-link" href="#tab-table2" data-toggle="tab">Departments</a>
             </li>
             <li>
-                <a href="#tab-table3" data-toggle="tab">Locations</a>
+                <a class="nav-link" href="#tab-table3" data-toggle="tab">Locations</a>
             </li>
         </ul>
         <div class="tab-content">
             <div class="tab-pane active container-fluid" id="tab-table1">
                 <div>
-                    <button type="button" id="addPer" class="btn btn-secondary text-right"><i class="fas fa-user-plus"></i></button>
+                    <button type="button" id="addPer" class="btn btn-secondary text-right"><i class="fas fa-user"></i>&nbsp&nbsp<i class="fas fa-plus"></i></button>
                 </div>
                 <table class="table table-striped wrap" id="mydatatable">
                     <thead>
@@ -439,6 +448,7 @@
         <script type="application/javascript" src="js/dataTables.bootstrap4.min.js"></script>
         <script type="application/javascript" src="js/dataTables.responsive.min.js"></script>
         <script type="application/javascript" src="js/responsive.bootstrap.min.js"></script>
+        <script type="application/javascript" src="js/preloader.js"></script>
         <script type="application/javascript" src="js/script.js"></script>
     </body>
 </html>
