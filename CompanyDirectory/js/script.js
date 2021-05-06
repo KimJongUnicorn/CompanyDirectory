@@ -292,7 +292,7 @@ $('#mydatatable').on('click','.deletePer',function(){
                 $('#delAlert').html(`${delName} ${delLName} removed from staff.`)
                 $('#delPopup').modal('hide');
                 $("#delAlert").fadeTo(3000, 500).slideUp(500, function(){
-                    $("#delAlert").alert('close');
+                    $("#delAlert").alert('hide');
                 });
                     table.ajax.reload(null, false);
                 }
@@ -363,7 +363,7 @@ $('#mydatatable').on('click','.deletePer',function(){
             },
             success: function(data){
                 $("#deptAlert").fadeTo(3000, 500).slideUp(500, function(){
-                    $("#deptAlert").alert('close');
+                    $("#deptAlert").alert('hide');
                 });
                 table.ajax.reload(null, false);
                 table2.ajax.reload(null, false);
@@ -388,7 +388,7 @@ $('#mydatatable').on('click','.deletePer',function(){
             },
             success: function(data){
                 $("#locAlert").fadeTo(3000, 500).slideUp(500, function(){
-                    $("#locAlert").alert('close');
+                    $("#locAlert").alert('hide');
                 });
                 table.ajax.reload(null, false);
                 table2.ajax.reload(null, false);
@@ -421,7 +421,7 @@ $('#mydatatable').on('click','.deletePer',function(){
             },
             success: function(data){
                 $("#perAlert").fadeTo(3000, 500).slideUp(500, function(){
-                    $("#perAlert").alert('close');
+                    $("#perAlert").alert('hide');
                 });
                 table.ajax.reload(null, false);
                 $('#openMenu').hide();
@@ -453,7 +453,7 @@ $('#mydatatable').on('click','.deletePer',function(){
             },
             success: function(data){
                 $("#updateAlert").fadeTo(3000, 500).slideUp(500, function(){
-                    $("#updateAlert").alert('close');
+                    $("#updateAlert").alert('hide');
                 });
                 table.ajax.reload(null, false);
                 $('#updatePopup').modal('hide');
@@ -461,16 +461,15 @@ $('#mydatatable').on('click','.deletePer',function(){
         })
     });
 
+    
+
     //REMOVING DEPARTMENTS
+    var delDeptSelect = '';
+
     $('#mydatatable2').on('click','.deleteDept',function(){ 
         var row = $(this).closest('tr');
-        var delDeptSelect = $('#mydatatable2').DataTable().row(row).data().id;
-        var deptName = $('#mydatatable2').DataTable().row(row).data().name;
-            
-        $('#delDeptTitle').html(`Removing ${deptName} from Departments.`);
-        $('#delDeptConfirmPopup').modal('show');
-
-        $('#saveDelDept').click(function() {
+        delDeptSelect = $('#mydatatable2').DataTable().row(row).data().id;
+        var deptName = $('#mydatatable2').DataTable().row(row).data().name;    
                 $.ajax({
                     type: "POST",
                     url: "php/server.php",
@@ -478,67 +477,90 @@ $('#mydatatable').on('click','.deletePer',function(){
                          delDeptSelect: delDeptSelect
                     },
                     success: function(data){
-                        $('#delDeptAlert').html(`${deptName} removed from Departments.`)
-                        $('#delDeptConfirmPopup').modal('hide');
-                        $('#openMenu').hide();
-                        $("#delDeptAlert").fadeTo(3000, 500).slideUp(500, function(){
-                            $("#delDeptAlert").alert('close');
+                        $('#delDeptTitle').html(`Removing ${deptName} from Departments.`);
+                        $('#delDeptConfirmPopup').modal('show');
+                        
+                        $('#saveDelDept').click(function() {
+                            $.ajax({
+                                type: "POST",
+                                url: "php/deleteDepartment.php",
+                                data: {
+                                    delDeptSelect: delDeptSelect
+                               },
+                               success: function(data){
+                                   console.log(delDeptSelect);
+                                    $('#delDeptAlert').html(`${deptName} removed from Departments.`)
+                                    $('#delDeptConfirmPopup').modal('hide');
+                                    $('#openMenu').hide();
+                                    $("#delDeptAlert").fadeTo(3000, 500).slideUp(500, function(){
+                                        $("#delDeptAlert").alert('hide');
+                                    });
+                                        table.ajax.reload(null, false);
+                                        table2.ajax.reload(null, false);
+                                        table3.ajax.reload(null, false);
+                                        populateDepts();
+                               },
+                            })
                         });
-                            table.ajax.reload(null, false);
-                            table2.ajax.reload(null, false);
-                            table3.ajax.reload(null, false);
-                            populateDepts();
                     },
                     error: function() {
                         $('#delDeptAlert').html(`Cannot remove ${deptName} whilst staffed!`)
-                        $('#delDeptConfirmPopup').modal('hide');
                         $('#openMenu').hide();
                         $("#delDeptAlert").fadeTo(3000, 500).slideUp(500, function(){
-                            $("#delDeptAlert").alert('close');
+                            $("#delDeptAlert").alert('hide');
                         });
                     }
-                })
-            });        
+                })       
         });
 
     //REMOVING LOCATIONS
+    var delLocSelect = '';
+
     $('#mydatatable3').on('click','.deleteLoc',function(){ 
         var row = $(this).closest('tr');
-        var delLocSelect = $('#mydatatable3').DataTable().row(row).data().id;
-        var locName = $('#mydatatable3').DataTable().row(row).data().name;
-            
-        $('#delLocTitle').html(`Removing ${locName} from Locations.`);
-        $('#delLocConfirmPopup').modal('show');
-
-        $('#saveDelLoc').click(function() {
+        delLocSelect = $('#mydatatable3').DataTable().row(row).data().id;
+        var locName = $('#mydatatable3').DataTable().row(row).data().name;    
                 $.ajax({
                     type: "POST",
                     url: "php/server.php",
                     data: {
-                        delLocSelect: delLocSelect
+                         delLocSelect: delLocSelect
                     },
                     success: function(data){
-                        $('#delLocAlert').html(`${locName} removed from Locations.`)
-                        $('#delLocConfirmPopup').modal('hide');
-                        $('#openMenu').hide();
-                        $("#delLocAlert").fadeTo(3000, 500).slideUp(500, function(){
-                            $("#delLocAlert").alert('close');
+                        $('#delLocTitle').html(`Removing ${locName} from Locations.`);
+                        $('#delLocConfirmPopup').modal('show');
+                        
+                        $('#saveDelLoc').click(function() {
+                            $.ajax({
+                                type: "POST",
+                                url: "php/deleteLocation.php",
+                                data: {
+                                    delLocSelect: delLocSelect
+                               },
+                               success: function(data){
+                                   console.log(delLocSelect);
+                                    $('#delLocAlert').html(`${locName} removed from Locations.`)
+                                    $('#delLocConfirmPopup').modal('hide');
+                                    $('#openMenu').hide();
+                                    $("#delLocAlert").fadeTo(3000, 500).slideUp(500, function(){
+                                        $("#delLocAlert").alert('hide');
+                                    });
+                                        table.ajax.reload(null, false);
+                                        table2.ajax.reload(null, false);
+                                        table3.ajax.reload(null, false);
+                                        populateLocs();
+                               },
+                            })
                         });
-                            table.ajax.reload(null, false);
-                            table2.ajax.reload(null, false);
-                            table3.ajax.reload(null, false);
-                            populateLocs();
                     },
                     error: function() {
                         $('#delLocAlert').html(`Cannot remove ${locName} whilst staffed!`)
-                        $('#delLocConfirmPopup').modal('hide');
                         $('#openMenu').hide();
                         $("#delLocAlert").fadeTo(3000, 500).slideUp(500, function(){
-                            $("#delLocAlert").alert('close');
+                            $("#delLocAlert").alert('hide');
                         });
                     }
-                })
-        });        
-    });
+                })       
+        });
 
 

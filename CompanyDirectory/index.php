@@ -234,35 +234,7 @@
         
         </div>
 
-        <!--DELETE DEPARTMENT MODAL-->
-
-        <div class="modal fade" id="delDeptPopup" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-mdb-backdrop="true" data-mdb-keyboard="true">
-            <div class="modal-dialog   modal-dialog-centered">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title">Remove Department</h5>
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    </div>
-                    <div class="modal-body">
-                    <form action="php/server.php" method="post" id="delDeptForm">
-                    <div class="form-group">
-                            <label class='col-md-4 control-label' for='selectbasic'>Department</label>
-                            <div class="col-md-8">
-                                <select id='delDeptSelect' name='delDept' class="form-control"></select>  
-                            </div>                
-                    </div>       
-                    </form>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" id="delCloseDept" class="btn btn-secondary" data-mdb-dismiss="modal">Close</button>
-                        <input type="submit" class="btn btn-primary" name="deleteDept" form="delDeptForm" id="deleteDept" value="Delete"></input> 
-                    </div>
-                </div>
-            </div>
-        </div>
-
         <!--DELETE DEPARTMENT CONFIRMATION MODAL-->
-
         <div class="modal fade" id="delDeptConfirmPopup" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-mdb-backdrop="true" data-mdb-keyboard="true">
             <div class="modal-dialog   modal-dialog-centered">
                 <div class="modal-content">
@@ -285,35 +257,7 @@
         
         </div>
 
-        <!--DELETE LOCATION MODAL-->
-
-        <div class="modal fade" id="delLocPopup" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-mdb-backdrop="true" data-mdb-keyboard="true">
-            <div class="modal-dialog   modal-dialog-centered">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title">Remove Location</h5>
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    </div>
-                    <div class="modal-body">
-                    <form action="php/server.php" method="post" id="delLocForm">
-                    <div class="form-group">
-                        <label class='col-md-4 control-label' for='selectbasic'>Location</label>
-                        <div class="col-md-8">
-                            <select id='delLocSelect' name='delLoc' class="form-control"></select>  
-                        </div>
-                    </div> 
-                    </form>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" id="delCloseLoc" class="btn btn-secondary" data-mdb-dismiss="modal">Close</button>
-                        <input type="submit" class="btn btn-primary" name="deleteLoc" form="delLocForm" id="deleteLoc" value="Delete"></input> 
-                    </div>
-                </div>
-            </div>
-        </div>
-
         <!--DELETE LOCATION CONFIRMATION MODAL-->
-
         <div class="modal fade" id="delLocConfirmPopup" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-mdb-backdrop="true" data-mdb-keyboard="true">
             <div class="modal-dialog   modal-dialog-centered">
                 <div class="modal-content">
@@ -431,6 +375,7 @@
             </div>
         </div>
 
+         <!--SCROLLTOP AND REFRESH BUTTONS-->
 
         <div id="scrollButton">
             <button type="button" class="btn btn-secondary text-right"><i class="fas fa-arrow-up"></i></button>

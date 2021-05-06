@@ -43,16 +43,13 @@
         $query = "UPDATE personnel SET firstName='$ufirstname', lastName='$ulastname', jobTitle='$ujobtitle', email='$uemail', departmentID='$udepartmentID' WHERE personnel.id=$uid";
         mysqli_query($conn, $query);                  
     }
-        
+
     if (isset($_POST['delDeptSelect'])) {
         $delDeptId = $_POST['delDeptSelect'];
-
         $query = "SELECT 1 FROM personnel WHERE departmentID = $delDeptId";
         $result = mysqli_query($conn, $query);
 
         if (mysqli_num_rows($result)==0) {
-            $query2 = "DELETE FROM department WHERE department.id = $delDeptId";
-            mysqli_query($conn, $query2);
             http_response_code(200);
         } else {
             http_response_code(500);
@@ -62,13 +59,10 @@
 
     if (isset($_POST['delLocSelect'])) {
         $delLocid = $_POST['delLocSelect'];
-
         $query = "SELECT 1 FROM department WHERE locationID = $delLocid";
         $result = mysqli_query($conn, $query);
 
         if (mysqli_num_rows($result)==0) {
-            $query2 = "DELETE FROM location WHERE location.id = $delLocid";
-            mysqli_query($conn, $query2);
             http_response_code(200);
         } else {
             http_response_code(500);
